@@ -1,0 +1,17 @@
+.single-title, .single-sub{
+	margin-top: 1vw;
+	margin-bottom: 1vw;
+	font-weight: bolder;
+}
+
+.single-desc{
+	margin-bottom: 1vw;
+}
+
+.single-pic{
+	width: 35vw;
+}
+
+.back-btn-wrap{
+	margin-top: 1vw;
+}

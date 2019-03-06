@@ -1,0 +1,13 @@
+.error-taken, .error-not-valid, .short-password{
+	display:none;
+	color: #f00;
+}
+
+.success-email{
+	display: none;
+	color:#5CB85C;
+}
+
+.route-no-show{
+	display:none;
+}
