@@ -81,7 +81,7 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        $story = News::find($id)->load('Category');
+        $story = News::withTrashed()->find($id)->load('Category');
         $isViewed = NewsView::where([
             ['news_id',$story->id],
             ['user_id', Auth::user()->id],
@@ -106,10 +106,15 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $story = News::find($id);
-        $categories = Category::all();
+        $story = News::withTrashed()->find($id);
+        if(is_null($story->deleted_at)){
+            $categories = Category::all();
 
-        return view('news.edit',['story' => $story,'categories' => $categories]);
+            return view('news.edit',['story' => $story,'categories' => $categories]);
+        }
+
+        $message = __("Story is deleted restore it first !");
+        return redirect('/home')->with('error', $message);
     }
 
     /**
@@ -173,7 +178,9 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        $delNews = News::find($id);
+        $delNews = News::withTrashed()->find($id);
+        $delNews->is_active = 0;
+        $delNews->save();
         $delNews->delete();
 
         $message = __("Succeffully deleted story!");
@@ -182,8 +189,11 @@ class NewsController extends Controller
 
     public function restore($news)
     {
-        $restore = News::withTrashed()->find($news)->restore();
-
+        $restore = News::withTrashed()->find($news);
+        $restore->is_active = 1;
+        $restore->save();
+        $restore->restore();
+        
         $message = __("Succeffully restored story!");
         return redirect('/home')->with('success', $message);
     }

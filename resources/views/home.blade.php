@@ -52,12 +52,20 @@
 		 	<div class="story-views col-md-6"><i class="far fa-eye"></i> Views: {{$story->views}}</div>
             <div class="cold-md-12 text-center"><i class="far fa-calendar-alt"></i> {{$story->show_date}}</div>
             @if(Auth::user()->isAdmin())
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <a href="{{route('news.edit',$story->id)}}">
                     <button type="submit" class="btn btn-info" value="edit"><i class="fas fa-edit"></i></button>
                 </a>
             </div>
-            <div class="col-md-6">
+             @if($story->is_active > 0)
+                    <div class="col-md-4 active-wrapp">
+                        <i class="fas fa-check-circle"></i> Active
+                @else
+                    <div class="col-md-4 not-active-wrapp">
+                        <i class="fas fa-times-circle"></i> Not Active
+                @endif
+            </div>
+            <div class="col-md-4">
                 @if(is_null($story->deleted_at))
                      <form action="{{ route('news.destroy',$story->id) }}" method="POST" id="delete-user" onsubmit="return ConfirmDelete()">
                           {{ method_field('DELETE') }}

@@ -122,3 +122,15 @@ input#title, input#sub_title, textarea#description{
 .deleted{
 	background: rgba(255, 148, 120, 1);
 }
+
+.active-wrapp, .not-active-wrapp{
+    padding-top:2%;
+}
+
+.active-wrapp{
+    color:#4BB543;
+}
+
+.not-active-wrapp{
+    color:#f00;
+}
