@@ -6,6 +6,10 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="og:title" content="News Task">
+    <meta property="og:description" content="CRUDS mostly ...">
+    <meta property="og:image" content="{{asset('images/favicon.png')}}">
+    <meta property="og:url" content="http://inveit280.voyager.icnhost.net/NewsTask/public/">
 
     <title>@yield('title')</title>
 
